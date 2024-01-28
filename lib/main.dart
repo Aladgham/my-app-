@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'providers/item_screen_provider.dart';
+import 'providers/main_screen_provider.dart';
+import 'providers/profile_screen_provider.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => MainScreenProvider()),
+      ChangeNotifierProvider(create: (_) => ItemsScreenProvider()),
+      ChangeNotifierProvider(create: (_) => ProfileScreenProvider()),
+    ],
+    child: const MyApp(),
+  ));
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("mohammmmmmmmmmmmmad"),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(),
+      home: const SplashScreen(),
     );
   }
 }
